@@ -10,8 +10,7 @@ export class AuthService {
   ) {}
 
   async signUp(name: string, email: string, pass: string): Promise<any> {
-    const registeredUser = await this.usersService.create(name, email, pass);
-    return registeredUser;
+    return await this.usersService.create(name, email, pass);
   }
 
   async signIn(email: string, pass: string): Promise<any> {
@@ -19,10 +18,11 @@ export class AuthService {
     if (user?.password !== pass) {
       throw new UnauthorizedException();
     }
-    const { password, ...result } = user;
-    const payload = { sub: result.email, username: result.name };
 
+    const payload = { sub: user.email, name: user.name };
     return {
+      message: 'success',
+      username: user.name,
       access_token: await this.jwtService.signAsync(payload),
     };
   }

@@ -3,14 +3,15 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
-import { jwtConstants } from './constants';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     UsersModule,
+    ConfigModule.forRoot(),
     JwtModule.register({
       global: true,
-      secret: jwtConstants.secret,
+      secret: process.env.PRIVATE_KEY_JWT,
       signOptions: { expiresIn: '1h' },
     }),
   ],

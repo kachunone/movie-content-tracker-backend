@@ -20,12 +20,17 @@ export class AuthController {
   @UseFilters(MongoExceptionFilter)
   @HttpCode(HttpStatus.OK)
   @Post('signup')
-  signUp(@Body() signUpDto: Record<string, string>) {
-    return this.authService.signUp(
+  async signUp(@Body() signUpDto: Record<string, string>) {
+    await this.authService.signUp(
       signUpDto.name,
       signUpDto.email,
       signUpDto.password,
     );
+    // if Error occured, it will be handled by MongoExceptionFilter
+    return {
+      statusCode: 200,
+      message: 'Registration succeeded',
+    };
   }
 
   @HttpCode(HttpStatus.OK)
@@ -38,5 +43,16 @@ export class AuthController {
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('validate-token')
+  @HttpCode(HttpStatus.OK)
+  validateToken(@Request() req) {
+    return {
+      status: 200,
+      message: 'Token is valid.',
+      username: req.user.name,
+    };
   }
 }
