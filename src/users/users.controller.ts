@@ -11,8 +11,8 @@ import {
   Delete,
   Param,
 } from '@nestjs/common';
-import { MongoExceptionFilter } from 'src/filters/mongo-exception.filter';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { MongoExceptionFilter } from '../filters/mongo-exception.filter';
+import { AuthGuard } from '../auth/auth.guard';
 import { UsersService } from './users.service';
 
 interface MovieInfo {

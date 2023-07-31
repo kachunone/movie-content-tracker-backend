@@ -1,7 +1,8 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import mongoose, { Model, Error } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/schemas/user.schema';
+// import { User } from 'src/schemas/user.schema';
+import { User } from '../schemas/user.schema';
 
 interface MovieInfo {
   id: number;

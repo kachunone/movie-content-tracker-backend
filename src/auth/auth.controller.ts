@@ -11,7 +11,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { MongoExceptionFilter } from 'src/filters/mongo-exception.filter';
+// import { MongoExceptionFilter } from 'src/filters/mongo-exception.filter';
+import { MongoExceptionFilter } from '../filters/mongo-exception.filter';
 
 @Controller('auth')
 export class AuthController {
