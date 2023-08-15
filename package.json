@@ -26,6 +26,8 @@
     "@nestjs/jwt": "^10.1.0",
     "@nestjs/mongoose": "^10.0.1",
     "@nestjs/platform-express": "^10.0.0",
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.0",
     "mongoose": "^7.4.1",
     "mongoose-unique-validator": "^4.0.0",
     "reflect-metadata": "^0.1.13",
