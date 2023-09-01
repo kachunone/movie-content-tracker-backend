@@ -65,4 +65,21 @@ export class UsersController {
       message: 'Deletion succeeded',
     };
   }
+
+  @UseFilters(MongoExceptionFilter)
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Get('check-status/:movieId')
+  async checkStatus(@Request() req, @Param('movieId') movieId: string) {
+    const userEmail = req.user.sub;
+    const movieIdAsNumber = parseInt(movieId, 10);
+    const movieStatus = await this.usersService.getMovieStatus(
+      userEmail,
+      movieIdAsNumber,
+    );
+    return {
+      statusCode: 200,
+      movieStatus: movieStatus,
+    };
+  }
 }

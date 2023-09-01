@@ -29,7 +29,7 @@ export class UsersService {
     } catch (err) {
       if (err['_message'] === 'User validation failed') {
         throw new HttpException(
-          { statusCode: 400, message: 'Email has already exists' },
+          { statusCode: 400, message: 'Email already exists.' },
           HttpStatus.BAD_REQUEST,
         );
       }
@@ -89,5 +89,23 @@ export class UsersService {
     await user.save();
 
     return user;
+  }
+
+  async getMovieStatus(email: string, movieId: number): Promise<String> {
+    const user = await this.userModel.findOne({
+      email,
+      movies: { $elemMatch: { id: movieId } },
+    });
+    if (!user) {
+      throw new HttpException('Movie is not included', HttpStatus.NOT_FOUND);
+    }
+    const movie = user.movies.find((movie) => movie.id === movieId);
+    if (!movie) {
+      throw new HttpException(
+        "Movie not found in the user's list",
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return movie.mark;
   }
 }
